@@ -1,5 +1,5 @@
 import { PathaoAuthError } from "../utils/errors";
-import { BASE_URLS, ENDPOINTS } from "../constants";
+import { ENDPOINTS } from "../constants";
 import type { IssueTokenRequest, RefreshTokenRequest, TokenResponse, StoredToken } from "../types/auth";
 
 export interface AuthServiceConfig {

@@ -7,7 +7,7 @@ import { WEBHOOK_HEADERS } from "../constants";
 export function verifySignature(
 	signature: string | undefined | null,
 	webhookSecret: string,
-	payload: string | unknown
+	_payload: string | unknown
 ): boolean {
 	if (!signature) {
 		throw new PathaoWebhookError(
@@ -19,16 +19,18 @@ export function verifySignature(
 		throw new PathaoWebhookError("Webhook secret is required");
 	}
 
-	// Convert payload to string if needed
-	const payloadString = typeof payload === "string" ? payload : JSON.stringify(payload);
-
 	// Create expected signature (Pathao uses the webhook secret as the signature)
 	// Note: The actual signature verification method may vary based on Pathao's implementation
 	// This is a placeholder - adjust based on actual Pathao webhook signature algorithm
+	// For now, we verify that the signature matches the webhook secret
 	const expectedSignature = webhookSecret;
 
 	// Timing-safe comparison
-	return timingSafeEqual(signature, expectedSignature);
+	if (!timingSafeEqual(signature, expectedSignature)) {
+		throw new PathaoWebhookError("Invalid webhook signature");
+	}
+
+	return true;
 }
 
 /**

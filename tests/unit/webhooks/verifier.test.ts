@@ -24,6 +24,8 @@ describe("verifySignature", () => {
 	});
 
 	it("should throw for invalid signature", () => {
-		expect(() => verifySignature("wrong-signature", webhookSecret, payload)).toThrow();
+		expect(() => verifySignature("wrong-signature", webhookSecret, payload)).toThrow(
+			PathaoWebhookError
+		);
 	});
 });

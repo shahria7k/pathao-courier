@@ -47,20 +47,25 @@ export class HttpClient {
 		const timeoutId = setTimeout(() => controller.abort(), this.timeout);
 
 		try {
-			const response = await fetch(url, {
+			const fetchOptions: RequestInit = {
 				method: options.method,
 				headers,
-				body: options.body ? JSON.stringify(options.body) : undefined,
 				signal: controller.signal,
-			});
+			};
+			if (options.body) {
+				fetchOptions.body = JSON.stringify(options.body);
+			}
+
+			const response = await fetch(url, fetchOptions);
 
 			clearTimeout(timeoutId);
 
-			const responseData = await response.json().catch(() => ({}));
+			const responseData = (await response.json().catch(() => ({}))) as unknown;
 
 			if (!response.ok) {
+				const errorData = responseData as { message?: string };
 				throw new PathaoApiError(
-					responseData.message || `API request failed with status ${response.status}`,
+					errorData.message || `API request failed with status ${response.status}`,
 					response.status,
 					responseData
 				);
@@ -86,10 +91,10 @@ export class HttpClient {
 	}
 
 	async get<T>(path: string, headers?: Record<string, string>): Promise<T> {
-		return this.request<T>({ method: "GET", path, headers });
+		return this.request<T>({ method: "GET", path, headers: headers || {} });
 	}
 
 	async post<T>(path: string, body?: unknown, headers?: Record<string, string>): Promise<T> {
-		return this.request<T>({ method: "POST", path, body, headers });
+		return this.request<T>({ method: "POST", path, body, headers: headers || {} });
 	}
 }

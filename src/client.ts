@@ -46,8 +46,8 @@ export class PathaoClient {
 			username: config.username,
 			password: config.password,
 			baseUrl,
-			onTokenUpdate: config.onTokenUpdate,
-			onTokenLoad: config.onTokenLoad,
+			...(config.onTokenUpdate && { onTokenUpdate: config.onTokenUpdate }),
+			...(config.onTokenLoad && { onTokenLoad: config.onTokenLoad }),
 		};
 
 		this.authService = new AuthService(authConfig);
@@ -55,7 +55,7 @@ export class PathaoClient {
 		// Create HTTP client
 		this.httpClient = new HttpClient({
 			baseUrl,
-			timeout: config.timeout,
+			...(config.timeout && { timeout: config.timeout }),
 			getAccessToken: () => this.authService.getAccessToken(),
 		});
 

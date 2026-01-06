@@ -1,13 +1,10 @@
 import { EventEmitter } from "events";
-import { PathaoWebhookError } from "../utils/errors";
 import { PathaoWebhookEvent, WEBHOOK_HEADERS, DEFAULT_WEBHOOK_INTEGRATION_SECRET } from "../constants";
 import { verifySignature } from "./verifier";
 import { parseWebhookPayload } from "./parser";
 import type {
 	WebhookPayload,
 	WebhookResponse,
-	WebhookSuccessResponse,
-	WebhookErrorResponse,
 	OrderCreatedWebhook,
 	OrderUpdatedWebhook,
 	OrderPickupRequestedWebhook,

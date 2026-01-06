@@ -2,8 +2,8 @@
  * Base error class for all Pathao SDK errors
  */
 export class PathaoError extends Error {
-	public readonly statusCode?: number;
-	public readonly code?: string;
+	public readonly statusCode: number | undefined;
+	public readonly code: string | undefined;
 
 	constructor(message: string, statusCode?: number, code?: string) {
 		super(message);
@@ -32,7 +32,7 @@ export class PathaoApiError extends PathaoError {
  * Error thrown when input validation fails
  */
 export class PathaoValidationError extends PathaoError {
-	public readonly field?: string;
+	public readonly field: string | undefined;
 
 	constructor(message: string, field?: string) {
 		super(message, 400, "VALIDATION_ERROR");

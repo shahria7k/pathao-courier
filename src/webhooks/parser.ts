@@ -42,47 +42,47 @@ export function parseWebhookPayload(data: unknown): WebhookPayload {
 	// Parse based on event type
 	switch (payload.event) {
 		case WEBHOOK_EVENT_TYPES.ORDER_CREATED:
-			return payload as OrderCreatedWebhook;
+			return payload as unknown as OrderCreatedWebhook;
 		case WEBHOOK_EVENT_TYPES.ORDER_UPDATED:
-			return payload as OrderUpdatedWebhook;
+			return payload as unknown as OrderUpdatedWebhook;
 		case WEBHOOK_EVENT_TYPES.ORDER_PICKUP_REQUESTED:
-			return payload as OrderPickupRequestedWebhook;
+			return payload as unknown as OrderPickupRequestedWebhook;
 		case WEBHOOK_EVENT_TYPES.ORDER_ASSIGNED_FOR_PICKUP:
-			return payload as OrderAssignedForPickupWebhook;
+			return payload as unknown as OrderAssignedForPickupWebhook;
 		case WEBHOOK_EVENT_TYPES.ORDER_PICKED:
-			return payload as OrderPickedWebhook;
+			return payload as unknown as OrderPickedWebhook;
 		case WEBHOOK_EVENT_TYPES.ORDER_PICKUP_FAILED:
-			return payload as OrderPickupFailedWebhook;
+			return payload as unknown as OrderPickupFailedWebhook;
 		case WEBHOOK_EVENT_TYPES.ORDER_PICKUP_CANCELLED:
-			return payload as OrderPickupCancelledWebhook;
+			return payload as unknown as OrderPickupCancelledWebhook;
 		case WEBHOOK_EVENT_TYPES.ORDER_AT_THE_SORTING_HUB:
-			return payload as OrderAtTheSortingHubWebhook;
+			return payload as unknown as OrderAtTheSortingHubWebhook;
 		case WEBHOOK_EVENT_TYPES.ORDER_IN_TRANSIT:
-			return payload as OrderInTransitWebhook;
+			return payload as unknown as OrderInTransitWebhook;
 		case WEBHOOK_EVENT_TYPES.ORDER_RECEIVED_AT_LAST_MILE_HUB:
-			return payload as OrderReceivedAtLastMileHubWebhook;
+			return payload as unknown as OrderReceivedAtLastMileHubWebhook;
 		case WEBHOOK_EVENT_TYPES.ORDER_ASSIGNED_FOR_DELIVERY:
-			return payload as OrderAssignedForDeliveryWebhook;
+			return payload as unknown as OrderAssignedForDeliveryWebhook;
 		case WEBHOOK_EVENT_TYPES.ORDER_DELIVERED:
-			return payload as OrderDeliveredWebhook;
+			return payload as unknown as OrderDeliveredWebhook;
 		case WEBHOOK_EVENT_TYPES.ORDER_PARTIAL_DELIVERY:
-			return payload as OrderPartialDeliveryWebhook;
+			return payload as unknown as OrderPartialDeliveryWebhook;
 		case WEBHOOK_EVENT_TYPES.ORDER_RETURNED:
-			return payload as OrderReturnedWebhook;
+			return payload as unknown as OrderReturnedWebhook;
 		case WEBHOOK_EVENT_TYPES.ORDER_DELIVERY_FAILED:
-			return payload as OrderDeliveryFailedWebhook;
+			return payload as unknown as OrderDeliveryFailedWebhook;
 		case WEBHOOK_EVENT_TYPES.ORDER_ON_HOLD:
-			return payload as OrderOnHoldWebhook;
+			return payload as unknown as OrderOnHoldWebhook;
 		case WEBHOOK_EVENT_TYPES.ORDER_PAID:
-			return payload as OrderPaidWebhook;
+			return payload as unknown as OrderPaidWebhook;
 		case WEBHOOK_EVENT_TYPES.ORDER_PAID_RETURN:
-			return payload as OrderPaidReturnWebhook;
+			return payload as unknown as OrderPaidReturnWebhook;
 		case WEBHOOK_EVENT_TYPES.ORDER_EXCHANGED:
-			return payload as OrderExchangedWebhook;
+			return payload as unknown as OrderExchangedWebhook;
 		case WEBHOOK_EVENT_TYPES.STORE_CREATED:
-			return payload as StoreCreatedWebhook;
+			return payload as unknown as StoreCreatedWebhook;
 		case WEBHOOK_EVENT_TYPES.STORE_UPDATED:
-			return payload as StoreUpdatedWebhook;
+			return payload as unknown as StoreUpdatedWebhook;
 		default:
 			throw new PathaoWebhookError(`Unknown webhook event type: ${payload.event}`);
 	}
