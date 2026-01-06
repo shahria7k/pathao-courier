@@ -1,126 +1,126 @@
-import { PathaoWebhookError } from "../utils/errors";
-import { WEBHOOK_EVENT_TYPES } from "../constants";
+import { PathaoWebhookError } from '../utils/errors';
+import { WEBHOOK_EVENT_TYPES } from '../constants';
 import type {
-	WebhookPayload,
-	OrderCreatedWebhook,
-	OrderUpdatedWebhook,
-	OrderPickupRequestedWebhook,
-	OrderAssignedForPickupWebhook,
-	OrderPickedWebhook,
-	OrderPickupFailedWebhook,
-	OrderPickupCancelledWebhook,
-	OrderAtTheSortingHubWebhook,
-	OrderInTransitWebhook,
-	OrderReceivedAtLastMileHubWebhook,
-	OrderAssignedForDeliveryWebhook,
-	OrderDeliveredWebhook,
-	OrderPartialDeliveryWebhook,
-	OrderReturnedWebhook,
-	OrderDeliveryFailedWebhook,
-	OrderOnHoldWebhook,
-	OrderPaidWebhook,
-	OrderPaidReturnWebhook,
-	OrderExchangedWebhook,
-	StoreCreatedWebhook,
-	StoreUpdatedWebhook,
-} from "../types/webhook";
+  WebhookPayload,
+  OrderCreatedWebhook,
+  OrderUpdatedWebhook,
+  OrderPickupRequestedWebhook,
+  OrderAssignedForPickupWebhook,
+  OrderPickedWebhook,
+  OrderPickupFailedWebhook,
+  OrderPickupCancelledWebhook,
+  OrderAtTheSortingHubWebhook,
+  OrderInTransitWebhook,
+  OrderReceivedAtLastMileHubWebhook,
+  OrderAssignedForDeliveryWebhook,
+  OrderDeliveredWebhook,
+  OrderPartialDeliveryWebhook,
+  OrderReturnedWebhook,
+  OrderDeliveryFailedWebhook,
+  OrderOnHoldWebhook,
+  OrderPaidWebhook,
+  OrderPaidReturnWebhook,
+  OrderExchangedWebhook,
+  StoreCreatedWebhook,
+  StoreUpdatedWebhook,
+} from '../types/webhook';
 
 /**
  * Parse and validate webhook payload
  */
 export function parseWebhookPayload(data: unknown): WebhookPayload {
-	if (!data || typeof data !== "object") {
-		throw new PathaoWebhookError("Invalid webhook payload: must be an object");
-	}
+  if (!data || typeof data !== 'object') {
+    throw new PathaoWebhookError('Invalid webhook payload: must be an object');
+  }
 
-	const payload = data as Record<string, unknown>;
+  const payload = data as Record<string, unknown>;
 
-	if (!payload.event || typeof payload.event !== "string") {
-		throw new PathaoWebhookError("Invalid webhook payload: missing or invalid event field");
-	}
+  if (!payload.event || typeof payload.event !== 'string') {
+    throw new PathaoWebhookError('Invalid webhook payload: missing or invalid event field');
+  }
 
-	// Parse based on event type
-	switch (payload.event) {
-		case WEBHOOK_EVENT_TYPES.ORDER_CREATED:
-			return payload as unknown as OrderCreatedWebhook;
-		case WEBHOOK_EVENT_TYPES.ORDER_UPDATED:
-			return payload as unknown as OrderUpdatedWebhook;
-		case WEBHOOK_EVENT_TYPES.ORDER_PICKUP_REQUESTED:
-			return payload as unknown as OrderPickupRequestedWebhook;
-		case WEBHOOK_EVENT_TYPES.ORDER_ASSIGNED_FOR_PICKUP:
-			return payload as unknown as OrderAssignedForPickupWebhook;
-		case WEBHOOK_EVENT_TYPES.ORDER_PICKED:
-			return payload as unknown as OrderPickedWebhook;
-		case WEBHOOK_EVENT_TYPES.ORDER_PICKUP_FAILED:
-			return payload as unknown as OrderPickupFailedWebhook;
-		case WEBHOOK_EVENT_TYPES.ORDER_PICKUP_CANCELLED:
-			return payload as unknown as OrderPickupCancelledWebhook;
-		case WEBHOOK_EVENT_TYPES.ORDER_AT_THE_SORTING_HUB:
-			return payload as unknown as OrderAtTheSortingHubWebhook;
-		case WEBHOOK_EVENT_TYPES.ORDER_IN_TRANSIT:
-			return payload as unknown as OrderInTransitWebhook;
-		case WEBHOOK_EVENT_TYPES.ORDER_RECEIVED_AT_LAST_MILE_HUB:
-			return payload as unknown as OrderReceivedAtLastMileHubWebhook;
-		case WEBHOOK_EVENT_TYPES.ORDER_ASSIGNED_FOR_DELIVERY:
-			return payload as unknown as OrderAssignedForDeliveryWebhook;
-		case WEBHOOK_EVENT_TYPES.ORDER_DELIVERED:
-			return payload as unknown as OrderDeliveredWebhook;
-		case WEBHOOK_EVENT_TYPES.ORDER_PARTIAL_DELIVERY:
-			return payload as unknown as OrderPartialDeliveryWebhook;
-		case WEBHOOK_EVENT_TYPES.ORDER_RETURNED:
-			return payload as unknown as OrderReturnedWebhook;
-		case WEBHOOK_EVENT_TYPES.ORDER_DELIVERY_FAILED:
-			return payload as unknown as OrderDeliveryFailedWebhook;
-		case WEBHOOK_EVENT_TYPES.ORDER_ON_HOLD:
-			return payload as unknown as OrderOnHoldWebhook;
-		case WEBHOOK_EVENT_TYPES.ORDER_PAID:
-			return payload as unknown as OrderPaidWebhook;
-		case WEBHOOK_EVENT_TYPES.ORDER_PAID_RETURN:
-			return payload as unknown as OrderPaidReturnWebhook;
-		case WEBHOOK_EVENT_TYPES.ORDER_EXCHANGED:
-			return payload as unknown as OrderExchangedWebhook;
-		case WEBHOOK_EVENT_TYPES.STORE_CREATED:
-			return payload as unknown as StoreCreatedWebhook;
-		case WEBHOOK_EVENT_TYPES.STORE_UPDATED:
-			return payload as unknown as StoreUpdatedWebhook;
-		default:
-			throw new PathaoWebhookError(`Unknown webhook event type: ${payload.event}`);
-	}
+  // Parse based on event type
+  switch (payload.event) {
+    case WEBHOOK_EVENT_TYPES.ORDER_CREATED:
+      return payload as unknown as OrderCreatedWebhook;
+    case WEBHOOK_EVENT_TYPES.ORDER_UPDATED:
+      return payload as unknown as OrderUpdatedWebhook;
+    case WEBHOOK_EVENT_TYPES.ORDER_PICKUP_REQUESTED:
+      return payload as unknown as OrderPickupRequestedWebhook;
+    case WEBHOOK_EVENT_TYPES.ORDER_ASSIGNED_FOR_PICKUP:
+      return payload as unknown as OrderAssignedForPickupWebhook;
+    case WEBHOOK_EVENT_TYPES.ORDER_PICKED:
+      return payload as unknown as OrderPickedWebhook;
+    case WEBHOOK_EVENT_TYPES.ORDER_PICKUP_FAILED:
+      return payload as unknown as OrderPickupFailedWebhook;
+    case WEBHOOK_EVENT_TYPES.ORDER_PICKUP_CANCELLED:
+      return payload as unknown as OrderPickupCancelledWebhook;
+    case WEBHOOK_EVENT_TYPES.ORDER_AT_THE_SORTING_HUB:
+      return payload as unknown as OrderAtTheSortingHubWebhook;
+    case WEBHOOK_EVENT_TYPES.ORDER_IN_TRANSIT:
+      return payload as unknown as OrderInTransitWebhook;
+    case WEBHOOK_EVENT_TYPES.ORDER_RECEIVED_AT_LAST_MILE_HUB:
+      return payload as unknown as OrderReceivedAtLastMileHubWebhook;
+    case WEBHOOK_EVENT_TYPES.ORDER_ASSIGNED_FOR_DELIVERY:
+      return payload as unknown as OrderAssignedForDeliveryWebhook;
+    case WEBHOOK_EVENT_TYPES.ORDER_DELIVERED:
+      return payload as unknown as OrderDeliveredWebhook;
+    case WEBHOOK_EVENT_TYPES.ORDER_PARTIAL_DELIVERY:
+      return payload as unknown as OrderPartialDeliveryWebhook;
+    case WEBHOOK_EVENT_TYPES.ORDER_RETURNED:
+      return payload as unknown as OrderReturnedWebhook;
+    case WEBHOOK_EVENT_TYPES.ORDER_DELIVERY_FAILED:
+      return payload as unknown as OrderDeliveryFailedWebhook;
+    case WEBHOOK_EVENT_TYPES.ORDER_ON_HOLD:
+      return payload as unknown as OrderOnHoldWebhook;
+    case WEBHOOK_EVENT_TYPES.ORDER_PAID:
+      return payload as unknown as OrderPaidWebhook;
+    case WEBHOOK_EVENT_TYPES.ORDER_PAID_RETURN:
+      return payload as unknown as OrderPaidReturnWebhook;
+    case WEBHOOK_EVENT_TYPES.ORDER_EXCHANGED:
+      return payload as unknown as OrderExchangedWebhook;
+    case WEBHOOK_EVENT_TYPES.STORE_CREATED:
+      return payload as unknown as StoreCreatedWebhook;
+    case WEBHOOK_EVENT_TYPES.STORE_UPDATED:
+      return payload as unknown as StoreUpdatedWebhook;
+    default:
+      throw new PathaoWebhookError(`Unknown webhook event type: ${payload.event}`);
+  }
 }
 
 /**
  * Type guard to check if payload is an order webhook
  */
 export function isOrderWebhook(
-	payload: WebhookPayload
+  payload: WebhookPayload
 ): payload is
-	| OrderCreatedWebhook
-	| OrderUpdatedWebhook
-	| OrderPickupRequestedWebhook
-	| OrderAssignedForPickupWebhook
-	| OrderPickedWebhook
-	| OrderPickupFailedWebhook
-	| OrderPickupCancelledWebhook
-	| OrderAtTheSortingHubWebhook
-	| OrderInTransitWebhook
-	| OrderReceivedAtLastMileHubWebhook
-	| OrderAssignedForDeliveryWebhook
-	| OrderDeliveredWebhook
-	| OrderPartialDeliveryWebhook
-	| OrderReturnedWebhook
-	| OrderDeliveryFailedWebhook
-	| OrderOnHoldWebhook
-	| OrderPaidWebhook
-	| OrderPaidReturnWebhook
-	| OrderExchangedWebhook {
-	return payload.event.startsWith("order.");
+  | OrderCreatedWebhook
+  | OrderUpdatedWebhook
+  | OrderPickupRequestedWebhook
+  | OrderAssignedForPickupWebhook
+  | OrderPickedWebhook
+  | OrderPickupFailedWebhook
+  | OrderPickupCancelledWebhook
+  | OrderAtTheSortingHubWebhook
+  | OrderInTransitWebhook
+  | OrderReceivedAtLastMileHubWebhook
+  | OrderAssignedForDeliveryWebhook
+  | OrderDeliveredWebhook
+  | OrderPartialDeliveryWebhook
+  | OrderReturnedWebhook
+  | OrderDeliveryFailedWebhook
+  | OrderOnHoldWebhook
+  | OrderPaidWebhook
+  | OrderPaidReturnWebhook
+  | OrderExchangedWebhook {
+  return payload.event.startsWith('order.');
 }
 
 /**
  * Type guard to check if payload is a store webhook
  */
 export function isStoreWebhook(
-	payload: WebhookPayload
+  payload: WebhookPayload
 ): payload is StoreCreatedWebhook | StoreUpdatedWebhook {
-	return payload.event.startsWith("store.");
+  return payload.event.startsWith('store.');
 }
