@@ -58,7 +58,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20.x"
-          cache: ${{ matrix.package-manager }}
+          cache: ${{ matrix.package-manager == 'npm' && 'npm' || '' }}
       - name: Install dependencies
         run: |
           if [ "${{ matrix.package-manager }}" == "npm" ]; then npm ci; fi
