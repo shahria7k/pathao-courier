@@ -60,7 +60,7 @@ export class HttpClient {
 
 			clearTimeout(timeoutId);
 
-			const responseData = (await response.json().catch(() => ({}))) as unknown;
+			const responseData: unknown = await response.json().catch(() => ({}));
 
 			if (!response.ok) {
 				const errorData = responseData as { message?: string };

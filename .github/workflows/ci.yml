@@ -62,8 +62,8 @@ jobs:
       - name: Install dependencies
         run: |
           if [ "${{ matrix.package-manager }}" == "npm" ]; then npm ci; fi
-          if [ "${{ matrix.package-manager }}" == "yarn" ]; then yarn install --frozen-lockfile; fi
-          if [ "${{ matrix.package-manager }}" == "pnpm" ]; then pnpm install --frozen-lockfile; fi
+          if [ "${{ matrix.package-manager }}" == "yarn" ]; then yarn install; fi
+          if [ "${{ matrix.package-manager }}" == "pnpm" ]; then pnpm install; fi
       - name: Build
         run: |
           if [ "${{ matrix.package-manager }}" == "npm" ]; then npm run build; fi

@@ -7,7 +7,7 @@ import { WEBHOOK_HEADERS } from "../constants";
 export function verifySignature(
 	signature: string | undefined | null,
 	webhookSecret: string,
-	_payload: string | unknown
+	_payload: unknown
 ): boolean {
 	if (!signature) {
 		throw new PathaoWebhookError(

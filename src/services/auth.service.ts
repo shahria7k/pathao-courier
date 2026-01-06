@@ -60,7 +60,7 @@ export class AuthService {
 			return this.tokenPromise;
 		}
 
-		this.tokenPromise = (async () => {
+		this.tokenPromise = (async (): Promise<StoredToken> => {
 			try {
 				const request: IssueTokenRequest = {
 					client_id: this.config.clientId,
@@ -133,7 +133,7 @@ export class AuthService {
 			return this.tokenPromise;
 		}
 
-		this.tokenPromise = (async () => {
+		this.tokenPromise = (async (): Promise<StoredToken> => {
 			try {
 				const request: RefreshTokenRequest = {
 					client_id: this.config.clientId,

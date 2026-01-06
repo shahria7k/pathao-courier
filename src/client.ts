@@ -56,7 +56,7 @@ export class PathaoClient {
 		this.httpClient = new HttpClient({
 			baseUrl,
 			...(config.timeout && { timeout: config.timeout }),
-			getAccessToken: () => this.authService.getAccessToken(),
+			getAccessToken: async (): Promise<string> => this.authService.getAccessToken(),
 		});
 
 		// Initialize services
