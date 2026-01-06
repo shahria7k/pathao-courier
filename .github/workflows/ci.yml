@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test:
+    name: Test (${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Format check
+        run: npm run format:check
+      - name: Build
+        run: npm run build
+      - name: Test
+        run: npm test
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        if: matrix.node-version == '20.x'
+        with:
+          files: ./coverage/coverage-final.json
+          fail_ci_if_error: false
+
+  test-package-managers:
+    name: Test Package Managers (${{ matrix.package-manager }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        package-manager: [npm, yarn, pnpm]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        if: matrix.package-manager == 'pnpm'
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: ${{ matrix.package-manager }}
+      - name: Install dependencies
+        run: |
+          if [ "${{ matrix.package-manager }}" == "npm" ]; then npm ci; fi
+          if [ "${{ matrix.package-manager }}" == "yarn" ]; then yarn install --frozen-lockfile; fi
+          if [ "${{ matrix.package-manager }}" == "pnpm" ]; then pnpm install --frozen-lockfile; fi
+      - name: Build
+        run: |
+          if [ "${{ matrix.package-manager }}" == "npm" ]; then npm run build; fi
+          if [ "${{ matrix.package-manager }}" == "yarn" ]; then yarn build; fi
+          if [ "${{ matrix.package-manager }}" == "pnpm" ]; then pnpm build; fi
+      - name: Test
+        run: |
+          if [ "${{ matrix.package-manager }}" == "npm" ]; then npm test; fi
+          if [ "${{ matrix.package-manager }}" == "yarn" ]; then yarn test; fi
+          if [ "${{ matrix.package-manager }}" == "pnpm" ]; then pnpm test; fi
