@@ -1,6 +1,6 @@
 {
 	"name": "pathao-courier",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "TypeScript SDK for Pathao Courier Merchant API with comprehensive webhook support",
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
@@ -42,10 +42,17 @@
 	},
 	"typesVersions": {
 		"*": {
-			"webhooks": ["./dist/webhooks/index.d.ts"]
+			"webhooks": [
+				"./dist/webhooks/index.d.ts"
+			]
 		}
 	},
-	"files": ["dist", "README.md", "CHANGELOG.md", "LICENSE"],
+	"files": [
+		"dist",
+		"README.md",
+		"CHANGELOG.md",
+		"LICENSE"
+	],
 	"scripts": {
 		"build": "tsc -p tsconfig.build.json && npm run build:esm",
 		"build:esm": "tsc -p tsconfig.build.json --module esnext --outDir dist-esm && node scripts/fix-esm-extension.js",
