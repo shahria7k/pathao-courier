@@ -1,3 +1,58 @@
+/**
+ * @packageDocumentation
+ * @module pathao-courier
+ *
+ * # Pathao Courier SDK
+ *
+ * A modern, type-safe TypeScript SDK for the Pathao Courier Merchant API with comprehensive webhook support.
+ *
+ * ## Features
+ *
+ * - Full TypeScript Support - Complete type definitions for all API endpoints
+ * - OAuth 2.0 Authentication - Automatic token management and refresh
+ * - Webhook Handling - Built-in webhook handlers for Express, Fastify, and generic frameworks
+ * - Input Validation - Automatic validation of request parameters
+ * - Error Handling - Custom error classes with detailed error messages
+ * - Framework Agnostic - Works with any Node.js framework
+ *
+ * ## Quick Start
+ *
+ * ```typescript
+ * import { PathaoClient } from 'pathao-courier';
+ *
+ * const client = new PathaoClient({
+ *   clientId: 'your-client-id',
+ *   clientSecret: 'your-client-secret',
+ *   username: 'your-email@example.com',
+ *   password: 'your-password',
+ *   environment: 'sandbox',
+ * });
+ *
+ * const store = await client.stores.create({ ... });
+ * ```
+ *
+ * ## Package Structure
+ *
+ * This package exports:
+ * - **PathaoClient** - Main client class for API interactions
+ * - **Services** - Individual service classes (StoreService, OrderService, etc.)
+ * - **Types** - Complete TypeScript type definitions
+ * - **Constants** - API endpoints, enums, and configuration constants
+ * - **Webhooks** - Webhook handling utilities and handlers
+ * - **Errors** - Custom error classes
+ * - **Validation** - Input validation utilities
+ *
+ * ## Webhook Support
+ *
+ * For webhook handling, import from the 'pathao-courier/webhooks' subpath:
+ *
+ * ```typescript
+ * import { PathaoWebhookHandler } from 'pathao-courier/webhooks';
+ * ```
+ *
+ * @public
+ */
+
 // Export main client
 export { PathaoClient, type PathaoClientConfig } from './client';
 

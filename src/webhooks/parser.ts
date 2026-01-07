@@ -26,7 +26,28 @@ import type {
 } from '../types/webhook';
 
 /**
- * Parse and validate webhook payload
+ * Parses and validates a webhook payload, returning a typed webhook object
+ *
+ * This function validates the webhook payload structure and returns a type-safe
+ * webhook object based on the event type. It supports all 21 webhook event types
+ * from Pathao Courier API.
+ *
+ * @param data - The raw webhook payload (typically from request body)
+ * @returns A typed webhook payload object matching the event type
+ * @throws {PathaoWebhookError} If payload is invalid, missing event field, or event type is unknown
+ *
+ * @example
+ * ```typescript
+ * const payload = parseWebhookPayload(req.body);
+ * // payload is now typed as OrderCreatedWebhook, OrderDeliveredWebhook, etc.
+ *
+ * if (payload.event === 'order.created') {
+ *   // TypeScript knows payload is OrderCreatedWebhook
+ *   console.log(payload.consignment_id);
+ * }
+ * ```
+ *
+ * @public
  */
 export function parseWebhookPayload(data: unknown): WebhookPayload {
   if (!data || typeof data !== 'object') {
@@ -89,7 +110,25 @@ export function parseWebhookPayload(data: unknown): WebhookPayload {
 }
 
 /**
- * Type guard to check if payload is an order webhook
+ * Type guard to check if a webhook payload is an order-related webhook
+ *
+ * This function narrows the type of a WebhookPayload to one of the 19 order webhook types.
+ * Useful for type-safe handling of order events.
+ *
+ * @param payload - The webhook payload to check
+ * @returns True if the payload is an order webhook, false otherwise
+ *
+ * @example
+ * ```typescript
+ * const payload = parseWebhookPayload(req.body);
+ *
+ * if (isOrderWebhook(payload)) {
+ *   // TypeScript knows payload is one of the order webhook types
+ *   console.log('Order event:', payload.consignment_id);
+ * }
+ * ```
+ *
+ * @public
  */
 export function isOrderWebhook(
   payload: WebhookPayload
@@ -117,7 +156,25 @@ export function isOrderWebhook(
 }
 
 /**
- * Type guard to check if payload is a store webhook
+ * Type guard to check if a webhook payload is a store-related webhook
+ *
+ * This function narrows the type of a WebhookPayload to one of the 2 store webhook types.
+ * Useful for type-safe handling of store events.
+ *
+ * @param payload - The webhook payload to check
+ * @returns True if the payload is a store webhook, false otherwise
+ *
+ * @example
+ * ```typescript
+ * const payload = parseWebhookPayload(req.body);
+ *
+ * if (isStoreWebhook(payload)) {
+ *   // TypeScript knows payload is StoreCreatedWebhook or StoreUpdatedWebhook
+ *   console.log('Store event:', payload.store_id);
+ * }
+ * ```
+ *
+ * @public
  */
 export function isStoreWebhook(
   payload: WebhookPayload
